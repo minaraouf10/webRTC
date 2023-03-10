@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:flutter_webrtc_wrapper/flutter_webrtc_wrapper.dart';
@@ -29,6 +31,7 @@ class _MeetingPageState extends State<MeetingPage> {
 
   @override
   Widget build(BuildContext context) {
+    log(widget.meetingDetail.toString(), name: "log body");
     return Scaffold(
       backgroundColor: Colors.black87,
       body: _buildMeetingRoom(),
@@ -45,12 +48,19 @@ class _MeetingPageState extends State<MeetingPage> {
   }
 
   void startMeeting() async {
+    log(widget.meetingDetail.toString(), name: "log startMeeting");
     final String userId = await loadUserId();
+
+    log(widget.meetingDetail.id.toString(),name: "anas stream");
+    log(userId.toString());
+
     meetingHelper = WebRTCMeetingHelper(
-        url: "http://192.168.1.5:4000",
+        url: "http://192.168.81.37:4000", //IP your PC
         meetingId: widget.meetingDetail.id,
         userId: userId,
         name: widget.name);
+    log(widget.meetingDetail.id.toString(),name: "ahmed stream");
+    log(userId.toString());
 
     MediaStream localStream =
         await navigator.mediaDevices.getUserMedia(mediaConstraints);
@@ -59,42 +69,50 @@ class _MeetingPageState extends State<MeetingPage> {
     meetingHelper!.stream = localStream;
 
     meetingHelper!.on("open", context, (ev, context) {
+      log("open", name: "log start meeting");
       setState(() {
         isConnectionFailed = false;
       });
     });
 
     meetingHelper!.on("connection", context, (ev, context) {
+      log("connection", name: "log connection");
       setState(() {
         isConnectionFailed = false;
       });
     });
 
     meetingHelper!.on("user-left", context, (ev, context) {
+      log("user-left", name: "log user-left");
       setState(() {
         isConnectionFailed = false;
       });
     });
 
     meetingHelper!.on("video-toggle", context, (ev, context) {
+      log("video-toggle", name: "log video-toggle");
       setState(() {});
     });
 
     meetingHelper!.on("audio-toggle", context, (ev, context) {
+      log("audio-toggle", name: "log audio-toggle");
       setState(() {});
     });
 
     meetingHelper!.on("meeting-ended", context, (ev, context) {
+      log("meeting-ended", name: "log meeting-ended");
       onMeetingEnd();
     });
 
     meetingHelper!.on("connection-setting-changed", context, (ev, context) {
+      log("connection-setting-changed", name: "log meeting-ended");
       setState(() {
         isConnectionFailed = false;
       });
     });
 
     meetingHelper!.on("stream-changed", context, (ev, context) {
+      log("stream-changed", name: "log meeting-ended");
       setState(() {
         isConnectionFailed = false;
       });
@@ -108,7 +126,9 @@ class _MeetingPageState extends State<MeetingPage> {
   }
 
   @override
-  void iniState() {
+  void initState() {
+    // TODO: implement initState
+    log(widget.meetingDetail.toString(), name: "log iniState");
     super.initState();
     initRenderers();
     startMeeting();
