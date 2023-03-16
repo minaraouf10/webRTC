@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:untitled10/utils/user.utils.dart';
 
-String MEETING_API_URL = "http://192.168.81.37:4000/api/meeting";
+String MEETING_API_URL = "http://192.168.1.9:4000/api/meeting";
 
 var client = http.Client();
 
