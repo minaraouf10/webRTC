@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:untitled10/utils/user.utils.dart';
 
-String MEETING_API_URL = "http://192.168.1.9:4000/api/meeting";
+String MEETING_API_URL = "http://192.168.1.3:4000/api/meeting";
 
 var client = http.Client();
 
@@ -16,7 +16,7 @@ Future<http.Response?> startMeeting() async {
     Uri.parse('$MEETING_API_URL/start'),
     headers: requestHeaders,
     body: jsonEncode(
-      {'hostId': userId, 'hostName': '3m Mina Pc'},
+      {'hostId': userId, 'hostName': ' Mina Pc'},
     ),
   );
 

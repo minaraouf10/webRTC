@@ -53,18 +53,20 @@ class _MeetingPageState extends State<MeetingPage> {
     log(userId.toString());
 
     meetingHelper = WebRTCMeetingHelper(
-        url: "http://192.168.1.9:4000", //IP your PC
+        url: "http://192.168.1.3:4000", //IP your PC
         meetingId: widget.meetingDetail.id,
         userId: userId,
         name: widget.name);
     log(widget.meetingDetail.id.toString(),name: "ahmed stream");
     log(userId.toString());
 
-    MediaStream localStream =
+    MediaStream _localStream =
         await navigator.mediaDevices.getUserMedia(mediaConstraints);
 
-    _localRenderer.srcObject = localStream;
-    meetingHelper!.stream = localStream;
+    _localRenderer.srcObject = _localStream;
+    meetingHelper!.stream = _localStream;
+
+    meetingHelper!.emit("message","mina raouf");
 
     meetingHelper!.on("open", context, (ev, context) {
       log("open", name: "log start meeting");

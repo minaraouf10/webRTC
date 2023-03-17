@@ -422,7 +422,7 @@ packages:
     source: hosted
     version: "1.0.13"
   socket_io_client:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: socket_io_client
       sha256: a9c589d3fe2658506be38ddb36f23348daab73a00ff1645533669d07a5111cfc
